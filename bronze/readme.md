@@ -1,21 +1,39 @@
 # 🥉 Bronze Layer – Raw Data Ingestion
 
 ## Overview
-The Bronze Layer serves as the raw landing zone for all incoming data from operational systems (CRM, ERP, and external sources).  
-Data is ingested **as-is** from Google Cloud Storage (GCS) into BigQuery for further refinement.
+The Bronze Layer serves as the raw landing zone for all incoming data from operational systems (CRM and ERP).
+Data is ingested as-is into BigQuery for further refinement in the Silver layer.
+
+This layer consists of two main components:
+
+- DDL Scripts – Initialize datasets and tables.
+- Stored Procedures – Load raw CSV files into the Bronze tables.
 
 ---
 
-## 📁 Data Sources
+## 📁 DDL Scripts – Table Initialization
 
-| System | File Name | Target Table | Description |
-|---------|------------|---------------|-------------|
-| CRM | crm_cust_info.csv | crm_cust_info | Customer master details |
-| CRM | crm_prd_info.csv | crm_prd_info | Product master details |
-| CRM | crm_sales_details.csv | crm_sales_details | Sales transactions |
-| ERP | erp_CUST_AZ12.csv | erp_cust_az12 | ERP customer reference |
-| ERP | erp_LOC_A101.csv | erp_loc_a101 | Location/branch metadata |
-| ERP | erp_PX_CAT_G1V2.csv | erp_px_cat_g1v2 | Product category catalog |
+File: bronze/ddl/create_bronze_tables.sql
+
+Purpose:
+
+- Creates the dataset DW_bronze if it does not exist.
+- Creates all raw tables for CRM and ERP data.
+
+Tables Created:
+```markdown
+System	Table Name	Description
+CRM	crm_cust_info	Customer master details
+CRM	crm_prd_info	Product master details
+CRM	crm_sales_details	Sales transactions
+ERP	erp_cust_az12	ERP customer reference
+ERP	erp_loc_a101	Location/branch metadata
+ERP	erp_px_cat_g1v2	Product category catalog
+```
+Execution:
+
+-- Initialize Bronze Layer tables
+RUN `bronze/ddl/create_bronze_tables.sql`
 
 ---
 
