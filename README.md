@@ -117,7 +117,7 @@ Use Git for version control and code review before deployment
 
 Automate execution via Airflow DAGs or BigQuery Scheduler wherever possible
 
-##📧 Author
+## 📧 Author
 
 Sachin Kaushik
 Toronto, ON
